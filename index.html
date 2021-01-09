@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Suma CRC</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Suma CRC</h1>
+
+<div class="container">
+
+    <label class="label" for="chain" >Ciąg znaków: </label><br><br>
+    <input type="number" id="chain"> <br><br><br>
+
+    <label class="label" for="polynomial" >Dzielnik: </label><br><br>
+    <input type="text" id="polynomial"> <br><br><br>
+
+    <label class="label" for="initialValue" >Initial Value: </label><br><br>
+    <input type="text" id="initialValue" value="000"> <br><br><br>
+
+    <button id="loadCheckDigitButton" class="button" onclick="generate();">Generuj</button> <br><br><br>
+
+
+    <label class="label" for="CRCsum" >Suma CRC: </label><br><br>
+    <input type="text" id="CRCsum"> <br><br><br>
+
+
+
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>
