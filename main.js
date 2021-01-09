@@ -1,34 +1,37 @@
 function generate() {
     let polynomial = document.getElementById('polynomial').value;
     let chain = document.getElementById('chain').value;
-    let initialValue = document.getElementById('initialValue').value;
+    let initialValue = parseInt(document.getElementById('initialValue').value);
 
-    let crc8Values = CRC8(polynomial, initialValue);
+    var byte_array = chain.split('').map(function(x) {return x.charCodeAt(0)});
+    var polynomial_byte_array = polynomial.split('').map(function(x) {return parseInt(x)});
+    let polynomial_byte = arrayToInt(polynomial_byte_array);
 
+    let crc8Values = CRC8(polynomial_byte, initialValue);
 
-    let CRCsum = checkSum(crc8Values);
+    let CRCsum = checkSum(crc8Values, byte_array);
 
-    document.getElementById('verifyText').innerText = CRCsum;
+    document.getElementById('CRCsum').value = CRCsum;
+}
+
+function arrayToInt(array) {
+
+    let int = 0;
+
+    for (var i = 0; i < array.length; i++ )
+        int += Math.pow(2, array.length-1-i)*array[i];
+
+    return int;
 }
 
 function CRC8(polynomial, initial_value) { // constructor takes an optional polynomial type from CRC8.POLY
     if (polynomial == null) polynomial = CRC8.POLY.CRC8_CCITT
     let valuesToReturn = [];
-    valuesToReturn['table'] = CRC8.generateTable(polynomial);
+    valuesToReturn['table'] = generateTable(polynomial);
     valuesToReturn['initial_value'] = initial_value;
 
     return valuesToReturn;
 };
-
-// Returns the 8-bit checksum given an array of byte-sized numbers
-// CRC8.prototype.checksum = function(byte_array) {
-//     var c = this.initial_value;
-//
-//     for (var i = 0; i < byte_array.length; i++ )
-//         c = this.table[(c ^ byte_array[i]) % 256];
-//
-//     return c;
-// };
 
 function checkSum(crc8Values, byte_array) {
     var c = crc8Values['initial_value'];
@@ -39,8 +42,7 @@ function checkSum(crc8Values, byte_array) {
     return c;
 };
 
-// returns a lookup table byte array given one of the values from CRC8.POLY
-CRC8.generateTable =function(polynomial)
+generateTable =function(polynomial)
 {
     var csTable = [] // 256 max len byte array
 
@@ -59,7 +61,6 @@ CRC8.generateTable =function(polynomial)
     return csTable
 };
 
-// This "enum" can be used to indicate what kind of CRC8 checksum you will be calculating
 CRC8.POLY = {
     CRC8 : 0xd5,
     CRC8_CCITT : 0x07,

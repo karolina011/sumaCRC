@@ -12,16 +12,15 @@
 <div class="container">
 
     <label class="label" for="chain" >Ciąg znaków: </label><br><br>
-    <input type="number" id="chain"> <br><br><br>
+    <input type="text" id="chain"> <br><br><br>
 
     <label class="label" for="polynomial" >Dzielnik: </label><br><br>
     <input type="text" id="polynomial"> <br><br><br>
 
-    <label class="label" for="initialValue" >Initial Value: </label><br><br>
-    <input type="text" id="initialValue" value="000"> <br><br><br>
+    <input type="hidden" id="initialValue" value="000">
+<!--    <br><br><br>-->
 
     <button id="loadCheckDigitButton" class="button" onclick="generate();">Generuj</button> <br><br><br>
-
 
     <label class="label" for="CRCsum" >Suma CRC: </label><br><br>
     <input type="text" id="CRCsum"> <br><br><br>
